@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ===== Payment Implementations (Strategies) ===== -->
+
+    <!-- UPIPayment Bean -->
+    <bean id="upiPayment" class="com.payment.spring.core.UPIPayment"/>
+
+    <!-- Credit card Bean -->
+   <bean id="creditCardPayment" class="com.payment.spring.core.CreditCardPayment"/>
+   
+   <!-- Debit card Bean-->
+   <bean id="debitCardPayment" class="com.payment.spring.core.DebitCardPayment"/>
+
+
+    <!-- ===== PaymentEntry Bean (Context Class) ===== -->
+    <!-- Use constructor injection to inject desired Payment strategy -->
+    <bean id="paymentEntry" class="com.payment.spring.core.PaymentEntry">
+        <constructor-arg ref="debitCardPayment"/>
+        <!-- To switch payment: change ref="upiPayment" -->
+    </bean>
+
+</beans>
